@@ -1,5 +1,48 @@
 import bcrypt from "bcrypt";
-import { adminUsersData } from "../model/adminUsers.model.js";
+import jwt from "jsonwebtoken";
+import { adminUsersData } from "../model/adminModel.js";
+
+
+// Admin Login
+
+export const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check email
+    const admin = await adminUsersData.findOne({ email });
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    // Check password
+    const isMatch = await bcrypt.compare(password, admin.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // Generate JWT
+    const token = jwt.sign(
+      { id: admin._id, role: "admin" },
+      process.env.JWT_SECRET || "secretkey",
+      { expiresIn: "1d" }
+    );
+
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      admin: {
+        id: admin._id,
+        name: admin.name,
+        email: admin.email,
+        position: admin.position,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 
 // Create Admin
 

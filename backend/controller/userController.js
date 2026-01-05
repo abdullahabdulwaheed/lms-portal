@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { usersData } from "../model/users.model.js";
+import { usersData } from "../model/userModel.js";
 
 // Create Admin
 

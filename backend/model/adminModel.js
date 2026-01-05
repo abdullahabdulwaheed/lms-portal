@@ -22,6 +22,11 @@ const adminUsers = new Schema({
     type: String,
     required: [true, "Enter the password"],
   },
+  role: {
+    type: String,
+    enum: ["superadmin", "admin"],
+    default: "admin",
+  },
 });
 
 export const adminUsersData = model("adminUsersData", adminUsers);
