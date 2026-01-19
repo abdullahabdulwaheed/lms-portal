@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import adminRoutes from "./routes/adminRoute.js";
 import userRotes from "./routes/userRoute.js";
 import teamsRoute from "./routes/teamRoute.js";
@@ -16,6 +17,11 @@ const PORT = 8080;
 // Connect DB
 
 connectDB();
+
+app.use(cors({
+  origin: ['https://lms-portal-admin.onrender.com', 'http://localhost:3000'],
+  credentials: true
+}));
 
 app.use(express.json());
 
