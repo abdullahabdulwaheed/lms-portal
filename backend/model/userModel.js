@@ -74,6 +74,11 @@ const users = new Schema({
     required: false,
     default: null,
   },
+  department: {
+    type: String,
+    required: false,
+    default: null,
+  },
   report_to: {
     type: Number,
   },

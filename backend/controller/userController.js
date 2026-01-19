@@ -136,8 +136,8 @@ export const deleteUserByID = async (req, res) => {
   const userID = req.params.id;
 
   try {
-    await usersData.deleteOne({ _id: adminID });
-    res.json({ message: "Admin Deleted Successfully!" });
+    await usersData.deleteOne({ _id: userID });
+    res.json({ message: "User Deleted Successfully!" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

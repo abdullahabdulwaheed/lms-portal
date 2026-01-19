@@ -7,6 +7,7 @@ import leaveRoutes from "./routes/leaveRoute.js";
 import holidayRoutes from "./routes/holidayRoute.js";
 import calendarRoutes from "./routes/calendarRoute.js";
 import attendanceRoutes from "./routes/attendanceRoute.js";
+import eventRoutes from "./routes/eventRoute.js";
 
 const app = express();
 const PORT = 8080;
@@ -39,6 +40,9 @@ app.use("/calendar", calendarRoutes);
 
 // Attendance
 app.use("/attendance", attendanceRoutes);
+
+// Event
+app.use("/event", eventRoutes);
 
 app.listen(PORT, () => {
   console.log(`The Server is running at the port ${PORT}`);

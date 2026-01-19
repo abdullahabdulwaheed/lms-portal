@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 
 const holidaySchema = new Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
     },
@@ -10,6 +10,10 @@ const holidaySchema = new Schema(
       type: Date,
       required: true,
       unique: true,
+    },
+    type: {
+      type: String, // Public, Restricted, Company
+      default: 'Public'
     },
     description: {
       type: String,

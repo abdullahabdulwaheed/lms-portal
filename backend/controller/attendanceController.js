@@ -66,8 +66,8 @@ export const getAttendance = async (req, res) => {
     } else if (req.user.role === "admin") {
       // Admin sees own + all users attendance
       records = await attendanceData.find().populate("user_id", "name email role");
-      // Filter out other admins
-      records = records.filter(r => r.user_id._id.toString() === req.user.id || r.user_id.role === "user");
+      // Filter out other admins and handle potential null user_id
+      records = records.filter(r => r.user_id && (r.user_id._id.toString() === req.user.id || r.user_id.role === "user"));
     } else if (req.user.role === "superadmin") {
       // Super admin sees all attendance
       records = await attendanceData.find().populate("user_id", "name email role");

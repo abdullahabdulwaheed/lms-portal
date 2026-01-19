@@ -6,7 +6,7 @@ const createSuperAdmin = async () => {
   try {
     await connectDB();
 
-    const email = "abdulah01@gamil.com";
+    const email = "abdullah35@gmail.com";
 
     const existing = await adminUsersData.findOne({ email });
     if (existing) {
@@ -14,7 +14,7 @@ const createSuperAdmin = async () => {
       process.exit();
     }
 
-    const hashedPassword = await bcrypt.hash("Abdullah35", 12);
+    const hashedPassword = await bcrypt.hash("Abdullah@35", 12);
 
     await adminUsersData.create({
       name: "Super Admin",

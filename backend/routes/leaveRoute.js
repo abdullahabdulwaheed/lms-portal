@@ -9,7 +9,6 @@ import {
 
 import {
   protect,
-  adminOnly,
   superAdminOnly,
   adminOrSuperAdminOnly,
 } from "../middleware/authMiddleware.js";
@@ -24,7 +23,7 @@ router.get("/my-leaves", protect, getMyLeaves);
 router.patch(
   "/process/:id",
   protect,
-  adminOnly,
+  adminOrSuperAdminOnly,
   processLeave
 );
 

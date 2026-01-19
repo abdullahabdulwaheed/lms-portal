@@ -7,12 +7,14 @@ import { adminUsersData } from "../model/adminModel.js";
 
 export const adminLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = req.body.email?.trim();
+    const password = req.body.password;
+
 
     // Check email
     const admin = await adminUsersData.findOne({ email });
     if (!admin) {
-      return res.status(404).json({ message: "Admin not found" });
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     // Check password
@@ -23,7 +25,7 @@ export const adminLogin = async (req, res) => {
 
     // Generate JWT
     const token = jwt.sign(
-      { id: admin._id, role: "admin" },
+      { id: admin._id, role: admin.role || "admin" },
       process.env.JWT_SECRET || "secretkey",
       { expiresIn: "1d" }
     );
@@ -36,6 +38,7 @@ export const adminLogin = async (req, res) => {
         name: admin.name,
         email: admin.email,
         position: admin.position,
+        role: admin.role || "admin",
       },
     });
   } catch (error) {
@@ -63,6 +66,7 @@ export const addAdmin = async (req, res) => {
       phone_number: req.body.phone_number,
       position: req.body.position,
       password: hashedPass,
+      role: req.body.role || "admin",
     });
 
     const adminUser = await newAdmin.save();
@@ -116,6 +120,7 @@ export const editAdmin = async (req, res) => {
         phone_number: req.body.phone_number,
         position: req.body.position,
         password: hashedPass,
+        role: req.body.role || "admin",
       },
       {
         new: true,

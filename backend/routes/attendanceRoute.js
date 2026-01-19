@@ -1,6 +1,6 @@
 import express from "express";
 import { checkIn, checkOut, getAttendance } from "../controller/attendanceController.js";
-import { protect, superAdminOnly, adminOnly } from "../middleware/authMiddleware.js";
+import { protect, superAdminOnly } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
